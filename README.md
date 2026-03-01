@@ -148,3 +148,11 @@ This set was first defined and drawn by Robert W. Brooks and Peter Matelski in 1
 
 The Mandelbrot set is a [compact set](https://en.wikipedia.org/wiki/Compact_space), since it is closed and contained in the closed disk of radius 2 centred on zero. A point ```c``` belongs to the Mandelbrot set if and only if ```|z| <2``` for all ```n>0``` In other words, the [absolute value](https://en.wikipedia.org/wiki/Absolute_value) of ```zn``` must remain at or below 2 for ```c``` to be in the Mandelbrot set, ```M``` and if that absolute value exceeds 2, the sequence will escape to infinity. Since ```c=z1``` , it follows that ```|c|<2``` establishing that ```c``` will always be in the closed disk of radius 2 around the origin. 
 
+# Mandelbrot Animation  
+[Self-similarity](https://en.wikipedia.org/wiki/Self-similarity) in the Mandelbrot set shown by zooming in on a round feature while panning in the negative-x direction. The display center pans left from the fifth to the seventh round feature (−1.4002, 0) to (−1.4011, 0) while the view magnifies by a factor of 21.78 to approximate the square of the [Feigenbaum ratio](https://en.wikipedia.org/wiki/Feigenbaum_constants).
+
+</br>
+
+![Self-Similarity-Zoom](https://github.com/user-attachments/assets/aca2a262-b7c6-40fc-a274-401d14465151)
+
+</br>
