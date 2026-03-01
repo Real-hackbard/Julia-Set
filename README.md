@@ -14,7 +14,7 @@ In [complex dynamics](https://en.wikipedia.org/wiki/Complex_dynamics), the Julia
 
 The Julia set of a function ```f```  is commonly denoted ```J(f)``` and the Fatou set is denoted ```F(J)``` These sets are named after the French mathematicians [Gaston Julia](https://en.wikipedia.org/wiki/Gaston_Julia) and [Pierre Fatou](https://en.wikipedia.org/wiki/Pierre_Fatou) whose work began the study of complex dynamics during the early 20th century.
 
-</nr>
+</Br>
 
 ![Julia](https://github.com/user-attachments/assets/c73787c3-9ff8-4898-be15-fdb75526ce81)
 
