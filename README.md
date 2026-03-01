@@ -12,7 +12,7 @@
 
 In [complex dynamics](https://en.wikipedia.org/wiki/Complex_dynamics), the Julia set and the Fatou set are two [complementary sets](https://en.wikipedia.org/wiki/Complement_(set_theory)) (Julia "laces" and Fatou "dusts") defined from a function. Informally, the Fatou set of the function consists of values with the property that all nearby values behave similarly under [repeated iteration](https://en.wikipedia.org/wiki/Iterated_function) of the function, and the Julia set consists of values such that an arbitrarily small [perturbation](https://en.wikipedia.org/wiki/Perturbation_theory) can cause drastic changes in the sequence of iterated function values. Thus the behavior of the function on the Fatou set is "regular", while on the Julia set its behavior is "[chaotic](https://en.wikipedia.org/wiki/Chaos_theory)".
 
-
+The Julia set of a function ```f```  is commonly denoted ```J(f)``` and the Fatou set is denoted ```F(J)``` These sets are named after the French mathematicians [Gaston Julia](https://en.wikipedia.org/wiki/Gaston_Julia) and [Pierre Fatou](https://en.wikipedia.org/wiki/Pierre_Fatou) whose work began the study of complex dynamics during the early 20th century.
 
 
 
