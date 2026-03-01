@@ -21,3 +21,106 @@ The Julia set of a function ```f```  is commonly denoted ```J(f)``` and the Fa
 </br>
 
 [Gaston Maurice Julia](https://en.wikipedia.org/wiki/Gaston_Julia) (3 February 1893 – 19 March 1978) was a French mathematician who devised the formula for the Julia set. His works were popularized by Benoit Mandelbrot; the Julia and Mandelbrot fractals are closely related. He founded, independently with Pierre Fatou, the modern theory of holomorphic dynamics.
+
+</br>
+
+### Painting Julia
+
+```pascal
+procedure TForm1.PaintJulia(xf,yf:double;imagenummer:integer;sender:tobject);
+var
+  a,b,cx,cy,da,db,radius,gwert:real;
+  i,it : word;
+  x,y,breite,hoehe:integer;
+  rowrgb : pbytearray;
+begin
+    gwert:=groesse;
+    breite:=juliabitmap.width;
+    hoehe:=juliabitmap.height;
+
+    jufaktor:=hoehe/breite;
+    it :=150;
+    radius:=4;
+    da := gwert/breite;
+    db := jufaktor*gwert/hoehe;
+    cx := xf;
+    cy := yf;
+    b := jufaktor*gwert/2;
+
+    FOR y:=0 TO hoehe-1 DO
+    BEGIN
+      rowrgb:=juliabitmap.scanline[y];
+      b := b - db;
+      a := -gwert/2;
+      FOR x:=0 TO breite-1 DO
+      BEGIN
+        a := a + da;
+      ASM
+         FLD     radius    { 9        }
+         FLD     a         { cx       9 }
+         FLD     b         { cy       cx    9     }
+         FLD     st        { y        cy    cx    9    }
+         FMUL    st,st     { y²       cy    cx    9    }
+         FLD     st(2)     { x        y²    cy    cx    9     }
+         FMUL    st,st     { x²       y²    cy    cx    9     }
+         FLD     st(2)     { y        x²    y²    cy    cx    9     }
+         FLD     st(4)     { x        y     x²    y²    cy    cx    9   }
+
+         XOR     cx,cx
+@itloop: INC     cx        { CX is the iteration counter   }
+         CMP     cx,it     { CX exceeds the value it,      }
+         JE      @noloop   { then do not set a pixel.      }
+
+         { y = 2xy + b }
+         FMUL              { xy       x²    y²    cy    cx    9     }
+         FADD    st,st     { 2xy      x²    y²    cy    cx    9     }
+         FADD    cy        { (y)      x²    y²    cy    cx    9     }
+         { x = x² - y² + a }
+         FLD     st(1)     { x²       (y)   x²    y²    cy    cx    9     }
+         FSUB    st,st(3)  { x²-y²    (y)   x²    y²    cy    cx    9     }
+         FADD    &cx       { (x)      (y)   x²    y²    cy    cx    9     }
+         { x² = x*x }
+         FST     st(3)     { (x)      (y)   x²    (x)   cy    cx    9     }
+         FMUL    st,st     { (x²)     (y)   x²    (x)   cy    cx    9     }
+         FSTP    st(2)     { (y)      (x²)  (x)   cy    cx    9     }
+         { y² = y*y }
+         FLD     st        { (y)      (y)   (x²)  (x)   cy    cx    9     }
+         FMUL    st,st     { (y²)     (y)   (x²)  (x)   cy    cx    9     }
+         { x² + y² < 9 ??? }
+         FADD    st,st(2)  { (x²+y²)  (y)   (x²)  (x)   cy    cx    9     }
+         FCOM    st(6)     { (x²+y²)  (y)   (x²)  (x)   cy    cx    9     }
+         FSTSW   ax
+         FSUB    st,st(2)  { (y²)     (y)   (x²)  (x)   cy    cx    9     }
+         FXCH    st(3)     { (x)      (y)   (x²)  (y²)  cy    cx    9     }
+         AND     ah,1
+         JNZ     @itloop   { If the sequence is within the circle, then continue. }
+@noloop: MOV     i, cx
+         FINIT
+      END;
+        if i>=it then i:=0
+                 else i:=i mod 256;
+        farbfeld[imagenummer,x,y]:=i;
+        rowrgb[3*x]:=pal[i].b;
+        rowrgb[3*x+1]:=pal[i].g;
+        rowrgb[3*x+2]:=pal[i].r;
+      END;
+    END;
+
+    if checkbox1.checked then
+    begin
+      juliabitmap.canvas.brush.style:=bsclear;
+      juliabitmap.canvas.font.name:='Verdana';
+      juliabitmap.canvas.TextOut(5,5,'c = '+_strkomma(xf,1,2)+' '+
+                                vorzeichenzahlkomma(yf,1,2)+'·i');
+    end;
+
+         case imagenummer of
+          1 : julia1.canvas.draw(0,0,juliabitmap);
+          2 : julia2.canvas.draw(0,0,juliabitmap);
+          3 : julia3.canvas.draw(0,0,juliabitmap);
+          4 : julia4.canvas.draw(0,0,juliabitmap);
+          5 : julia5.canvas.draw(0,0,juliabitmap);
+          6 : julia6.canvas.draw(0,0,juliabitmap);
+        end;
+end;
+```
