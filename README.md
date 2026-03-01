@@ -20,3 +20,4 @@ The Julia set of a function ```f```  is commonly denoted ```J(f)``` and the Fa
 
 </br>
 
+[Gaston Maurice Julia](https://en.wikipedia.org/wiki/Gaston_Julia) (3 February 1893 – 19 March 1978) was a French mathematician who devised the formula for the Julia set. His works were popularized by Benoit Mandelbrot; the Julia and Mandelbrot fractals are closely related. He founded, independently with Pierre Fatou, the modern theory of holomorphic dynamics.
