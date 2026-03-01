@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.835,D:\Incoming\[.WORK]\juliamengen\ujulia.dfm=D:\Incoming\[.WORK]\juliamengen\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.835,D:\Incoming\[.WORK]\juliamengen\ujulia.pas=D:\Incoming\[.WORK]\juliamengen\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.130,D:\Incoming\[.WORK]\juliamengen\pjulia.dproj=D:\Incoming\[.WORK]\juliamengen\Project1.dproj</Transaction>
+  </Transactions>
+</BorlandProject>
