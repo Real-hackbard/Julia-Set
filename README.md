@@ -156,3 +156,149 @@ The Mandelbrot set is a [compact set](https://en.wikipedia.org/wiki/Compact_spac
 ![Self-Similarity-Zoom](https://github.com/user-attachments/assets/aca2a262-b7c6-40fc-a274-401d14465151)
 
 </br>
+
+### Painting Mandelbrot
+
+```pascal
+procedure Paintmantel(imagenummer:integer);
+label 1;
+VAR a,b,da,db,radius,af,bf,gwert:real;
+                i,it : word;
+                bitmap:tbitmap;
+    x,y,breite,hoehe:integer;
+    rowrgb : pbytearray;
+BEGIN
+    QueryPerformanceCounter(Time1);
+
+    if abs(faktor)<0.1 then faktor:=1;
+    if faktor>100000000 then faktor:=100000000;
+    if sabbruch=false then
+    begin
+      gwert:=4;
+      breite:=mandel1.width;
+      hoehe:=mandel2.height;
+      bitmap:=tbitmap.create;
+      bitmap.width:=breite;
+      bitmap.height:=hoehe;
+      bitmap.pixelformat:=pf24bit;
+      jufaktor:=hoehe/breite;
+      it:=round(5*faktor);
+      if it<200 then it :=200;
+      if it>5000 then it :=5000;
+      radius:=4;
+      da := gwert/breite/faktor;
+      db := jufaktor*gwert/hoehe/faktor;
+
+      bf:= mandelpunkt[1].y+db*hoehe/2;
+      af:= mandelpunkt[1].x-da*breite/2;
+
+      b := bf;
+      FOR y:=0 TO hoehe-1 DO
+      BEGIN
+        rowrgb:=bitmap.scanline[y];
+        b := b - db;
+        a := af;
+        FOR x:=0 TO breite-1 DO
+        BEGIN
+          a := a + da;
+      ASM
+         FLD     radius    { 4        }
+         FLD     a         { cx       4 }
+         FLD     b         { cy       cx    4     }
+         FLD     st        { y        cy    cx    4    }
+         FMUL    st,st     { y²       cy    cx    4    }
+         FLD     st(2)     { x        y²    cy    cx    4     }
+         FMUL    st,st     { x²       y²    cy    cx    4     }
+         FLD     st(2)     { y        x²    y²    cy    cx    4     }
+         FLD     st(4)     { x        y     x²    y²    cy    cx    4   }
+
+         XOR     cx,cx
+@itloop: INC     cx        // CX is the iteration counter
+         CMP     cx,it     // CX exceeds the value of it,
+         JE      @noloop   // then abort
+         { y = 2xy + cy }
+         FMUL              { xy       x²    y²    cy    cx    4     }
+         FADD    st,st     { 2xy      x²    y²    cy    cx    4     }
+         FADD    st,st(3)  { (y)      x²    y²    cy    cx    4     }
+         { x = x² - y² + cx }
+         FLD     st(1)     { x²       (y)   x²    y²    cy    cx    4     }
+         FSUB    st,st(3)  { x²-y²    (y)   x²    y²    cy    cx    4     }
+         FADD    st,st(5)  { (x)      (y)   x²    y²    cy    cx    4     }
+         { x² = x*x }
+         FST     st(3)     { (x)      (y)   x²    (x)   cy    cx    4     }
+         FMUL    st,st     { (x²)     (y)   x²    (x)   cy    cx    4     }
+         FSTP    st(2)     { (y)      (x²)  (x)   cy    cx    4     }
+         { y² = y*y }
+         FLD     st        { (y)      (y)   (x²)  (x)   cy    cx    4     }
+         FMUL    st,st     { (y²)     (y)   (x²)  (x)   cy    cx    4     }
+         { x² + y² < 9 ??? }
+         FADD    st,st(2)  { (x²+y²)  (y)   (x²)  (x)   cy    cx    4     }
+         FCOM    st(6)     { (x²+y²)  (y)   (x²)  (x)   cy    cx    4     }
+         FSTSW   ax
+         FSUB    st,st(2)  { (y²)     (y)   (x²)  (x)   cy    cx    4     }
+         FXCH    st(3)     { (x)      (y)   (x²)  (y²)  cy    cx    4     }
+         AND     ah,1
+         JNZ     @itloop   { If the sequence is within the circle, then continue. }
+@noloop: MOV     i, cx
+         FINIT
+      END;
+      if i>=it then i:=0
+               else i:=i mod 256;
+      farbfeld[imagenummer,x,y]:=i;
+      rowrgb[3*x]:=pal[i].b;
+      rowrgb[3*x+1]:=pal[i].g;
+      rowrgb[3*x+2]:=pal[i].r;
+    END;
+
+      QueryPerformanceCounter(Time2);
+      if time2-time1>abbruchtime then
+      begin
+        application.processmessages;
+        if sabbruch then goto 1;
+        case imagenummer of
+          1 : mandel1.canvas.draw(0,0,bitmap);
+          2 : mandel2.canvas.draw(0,0,bitmap);
+          3 : mandel3.canvas.draw(0,0,bitmap);
+          4 : mandel4.canvas.draw(0,0,bitmap);
+          5 : mandel5.canvas.draw(0,0,bitmap);
+          6 : mandel6.canvas.draw(0,0,bitmap);
+        end;
+        time1:=time2;
+      end;
+
+  END;
+
+1: case imagenummer of
+     1 : mandel1.canvas.draw(0,0,bitmap);
+     2 : mandel2.canvas.draw(0,0,bitmap);
+     3 : mandel3.canvas.draw(0,0,bitmap);
+     4 : mandel4.canvas.draw(0,0,bitmap);
+     5 : mandel5.canvas.draw(0,0,bitmap);
+     6 : mandel6.canvas.draw(0,0,bitmap);
+   end;
+   bitmap.free;
+  end;
+END;
+begin
+    if sabbruch=true then
+    begin
+      QueryPerformanceFrequency(frequenz);      // Frequency of the counter
+      abbruchtime:=frequenz div 2;
+
+      sabbruch:=false;
+      zeichnen.caption:='Cancel';
+      mandelpunkt[1].x:=ein_real(edit1);
+      mandelpunkt[1].y:=ein_real(edit2);
+
+      for i:=1 to 6 do
+      begin
+        val(komma(tabelle.cells[1,i]),faktor,code);
+        Paintmantel(i);
+      end;
+
+      PaintboxPaint(Sender);
+      zeichnen.caption:='Enlargements characters';
+    end;
+    sabbruch:=true;
+end;
+```
