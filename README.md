@@ -134,3 +134,6 @@ begin
         end;
 end;
 ```
+
+# Mandelbrot Quantity  
+The Mandelbrot set is a two-dimensional set that is defined in the complex plane as the complex numbers ```c``` for which the function ```fc(z)=z²+c``` does not diverge to infinity when iterated starting at ```z=0``` for which the sequence ```fc(0), fc(fc(0)) etc., remains bounded in absolute value.
