@@ -140,6 +140,11 @@ The Mandelbrot set is a two-dimensional set that is defined in the [complex plan
 
 This set was first defined and drawn by Robert W. Brooks and Peter Matelski in 1978, as part of a study of Kleinian groups. Afterwards, in 1980, [Benoit Mandelbrot](https://en.wikipedia.org/wiki/Benoit_Mandelbrot) obtained high-quality visualizations of the set while working at IBM's Thomas J. Watson Research Center in Yorktown Heights, New York.
 
+</br>
 
+![Mandelbrot](https://github.com/user-attachments/assets/c4f5ddcf-dda0-485d-ad66-b478c7c4c47b)
 
+</br>
+
+The Mandelbrot set is a compact set, since it is closed and contained in the closed disk of radius 2 centred on zero. A point ```c``` belongs to the Mandelbrot set if and only if ```|z| <2``` for all ```n>0``` In other words, the absolute value of ```zn``` must remain at or below 2 for ```c``` to be in the Mandelbrot set, ```M``` and if that absolute value exceeds 2, the sequence will escape to infinity. Since ```c=z1``` , it follows that ```|c|<2``` establishing that ```c``` will always be in the closed disk of radius 2 around the origin. 
 
