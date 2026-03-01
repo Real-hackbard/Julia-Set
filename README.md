@@ -22,6 +22,16 @@ The Julia set of a function ```f```  is commonly denoted ```J(f)``` and the Fa
 
 [Gaston Maurice Julia](https://en.wikipedia.org/wiki/Gaston_Julia) (3 February 1893 – 19 March 1978) was a French mathematician who devised the formula for the Julia set. His works were popularized by Benoit Mandelbrot; the Julia and Mandelbrot fractals are closely related. He founded, independently with Pierre Fatou, the modern theory of holomorphic dynamics.
 
+### Julia Set Animation
+
+Animated Julia SetIt's a sequence of Julia sets for the points at 5° intervals around the unit circle. It's something I wrote up in an edition of Fractal Report in the early 1990s. I animated it then in BASIC on an Amiga 500. Now, it's more accessible as a GIF animation, and the code (in an eclectic mix of Fortran77 and Perl) is presented for your "enjoyment".
+
+Explanations of the mathematics are in Peitgen & Saupe's book The Science of Fractal Images, Springer-Verlag. They do it better than I ever could.
+
+</br>
+
+![JSr07885](https://github.com/user-attachments/assets/ffcf522a-7078-4f8e-b1b5-1081291de69d)
+
 </br>
 
 ### Painting Julia
