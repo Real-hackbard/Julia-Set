@@ -136,4 +136,10 @@ end;
 ```
 
 # Mandelbrot Quantity  
-The Mandelbrot set is a two-dimensional set that is defined in the complex plane as the complex numbers ```c``` for which the function ```fc(z)=z²+c``` does not diverge to infinity when iterated starting at ```z=0``` for which the sequence ```fc(0), fc(fc(0)) etc., remains bounded in absolute value.
+The Mandelbrot set is a two-dimensional set that is defined in the [complex plane](https://en.wikipedia.org/wiki/Complex_plane) as the [complex numbers](https://en.wikipedia.org/wiki/Complex_number) ```c``` for which the function ```fc(z)=z²+c``` does not diverge to infinity when iterated starting at ```z=0``` for which the sequence ```fc(0), fc(fc(0))``` etc., remains bounded in absolute value.
+
+This set was first defined and drawn by Robert W. Brooks and Peter Matelski in 1978, as part of a study of Kleinian groups. Afterwards, in 1980, [Benoit Mandelbrot](https://en.wikipedia.org/wiki/Benoit_Mandelbrot) obtained high-quality visualizations of the set while working at IBM's Thomas J. Watson Research Center in Yorktown Heights, New York.
+
+
+
+
