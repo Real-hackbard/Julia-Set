@@ -12,6 +12,7 @@ currently being supported with security updates.
 | 1.0.x   | :white_check_mark: Simple Mandelbrot Calculator |
 | 1.0.x   | :white_check_mark: Mandelbrot Negativ Calculator |
 | 1.0.x   | :white_check_mark: Colorize RGB |
+| 1.0.x   | :white_check_mark: Julia Monochrom |
 
 ## Reporting a Vulnerability
 
